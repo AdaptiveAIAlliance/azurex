@@ -248,7 +248,9 @@ defmodule Azurex.Blob do
           comp: "list",
           restype: "container"
         ] ++ params,
-      options: [ssl: [versions: [:"tlsv1.2"]]]
+      options: [
+        ssl: [ciphers: :ssl.cipher_suites(:all, 'tlsv1.3') ++ [{:rsa, :aes_256_cbc, :sha256}]]
+      ]
     }
     |> SharedKey.sign(
       storage_account_name: Config.storage_account_name(),
