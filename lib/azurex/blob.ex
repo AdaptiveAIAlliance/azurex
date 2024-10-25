@@ -13,7 +13,8 @@ defmodule Azurex.Blob do
   def list_containers do
     %HTTPoison.Request{
       url: Config.api_url() <> "/",
-      params: [comp: "list"]
+      params: [comp: "list"],
+      options: [ssl: [versions: [:"tlsv1.2"]]]
     }
     |> SharedKey.sign(
       storage_account_name: Config.storage_account_name(),
